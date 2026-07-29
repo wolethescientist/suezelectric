@@ -1,0 +1,565 @@
+/* Zodiak = high-contrast display serif. Switzer = neo-grotesque workhorse. Both ITF/Fontshare. */
+@import url("https://api.fontshare.com/v2/css?f[]=zodiak@400,500,700,800&f[]=switzer@400,500,600,700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* ---- Voltage Editorial palette. One dominant tone (ink), one accent (voltage), one neutral (bone). ---- */
+  --color-ink: #08090a;
+  --color-ink-2: #0e1013;
+  --color-ink-3: #171a1e;
+  --color-ink-line: #24282d;
+
+  --color-bone: #ede8df;
+  --color-bone-2: #e2dbcf;
+  --color-bone-line: #cfc6b6;
+
+  /* Sampled from the SuezElectric logo artwork. */
+  --color-voltage: #f18835; /* on ink only — 7.5:1. Never on bone. */
+  --color-voltage-ink: #8f4a12; /* the bone-safe shade of the same orange — 5.4:1 on bone */
+  --color-current: #0f4f48; /* rare tertiary: deep teal */
+
+  --color-fg-ink: #f2efe9;
+  --color-fg-ink-muted: #9a9791; /* 6.7:1 on ink */
+  --color-fg-bone: #14161a;
+  --color-fg-bone-muted: #55565b; /* 5.9:1 on bone */
+
+  --font-display: "Zodiak", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Switzer", ui-sans-serif, system-ui, sans-serif;
+  /* Labels, eyebrows and buttons ride the body sans at 500 — wide-tracked mono for
+     decoration is the single most generic pattern in modern web UI. Mono is now
+     reserved for actual data: token digits, meter serials, tabular figures. */
+  --font-label: "Switzer", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  /* Fluid editorial scale */
+  --text-display-xl: clamp(3rem, 8.6vw, 8.25rem);
+  --text-display-l: clamp(2.375rem, 5.4vw, 4.75rem);
+  --text-display-m: clamp(1.75rem, 3.2vw, 2.875rem);
+  --text-display-s: clamp(1.375rem, 2.1vw, 1.75rem);
+  --text-body-l: 1.1875rem;
+  --text-body: 1.0625rem;
+  --text-micro: 0.6875rem;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-ink-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-ink);
+    color: var(--color-fg-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.65;
+    font-feature-settings: "ss01", "cv01";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-voltage);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-voltage);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* ---------- Structural editorial primitives ---------- */
+
+  /* The measure: every page hangs off this. Asymmetric, not a centered box. */
+  .measure {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 5.5rem);
+  }
+
+  /* Eyebrow label with a tick rule — sans at 500, moderate tracking */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-voltage);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.7;
+  }
+  .on-bone .eyebrow {
+    color: var(--color-voltage-ink);
+  }
+
+  /* Hairline rule that reads as a measurement scale, not a border-box */
+  .rule-ticks {
+    position: relative;
+    height: 1px;
+    background: var(--color-ink-line);
+  }
+  .rule-ticks::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--color-ink-line) 0 1px,
+      transparent 1px 5rem
+    );
+    height: 7px;
+    top: 0;
+  }
+  .on-bone .rule-ticks,
+  .on-bone .rule-ticks::after {
+    background-color: var(--color-bone-line);
+  }
+  .on-bone .rule-ticks::after {
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--color-bone-line) 0 1px,
+      transparent 1px 5rem
+    );
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0 1.75rem;
+    border-radius: 9999px;
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+    cursor: pointer;
+    /* Colour/shadow transitions only — never scale. No layout shift on hover. */
+    transition:
+      background-color 200ms var(--ease-out-expo),
+      color 200ms var(--ease-out-expo),
+      border-color 200ms var(--ease-out-expo),
+      box-shadow 260ms var(--ease-out-expo);
+  }
+
+  .btn-voltage {
+    background: var(--color-voltage);
+    color: var(--color-ink);
+    border: 1px solid var(--color-voltage);
+  }
+  .btn-voltage:hover {
+    background: #f79e58;
+    border-color: #f79e58;
+    box-shadow: 0 0 0 1px var(--color-ink), 0 14px 40px -18px rgb(241 136 53 / 0.75);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-fg-ink);
+    border: 1px solid var(--color-ink-line);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-fg-ink-muted);
+    background: var(--color-ink-2);
+  }
+  .on-bone .btn-ghost {
+    color: var(--color-fg-bone);
+    border-color: var(--color-bone-line);
+  }
+  .on-bone .btn-ghost:hover {
+    background: var(--color-bone-2);
+    border-color: var(--color-fg-bone-muted);
+  }
+
+  /* ---------- Long-form legal prose ---------- */
+  .legal > section + section {
+    margin-top: 3.25rem;
+  }
+  .legal h2 {
+    font-size: var(--text-display-s);
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--color-bone-line);
+  }
+  .legal h3 {
+    margin-top: 2rem;
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  .legal p,
+  .legal li {
+    margin-top: 1.1rem;
+    color: var(--color-fg-bone-muted);
+    line-height: 1.75;
+  }
+  .legal ul {
+    margin-top: 0.5rem;
+    padding-left: 1.1rem;
+    list-style: none;
+  }
+  .legal li {
+    position: relative;
+  }
+  .legal li::before {
+    content: "";
+    position: absolute;
+    left: -1.1rem;
+    top: 0.85em;
+    width: 0.4rem;
+    height: 1px;
+    background: var(--color-voltage-ink);
+  }
+  .legal strong {
+    color: var(--color-fg-bone);
+    font-weight: 600;
+  }
+  .legal a {
+    color: var(--color-voltage-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ---------- Forms: baseline-ruled fields, never rounded boxes ---------- */
+  .field {
+    display: block;
+  }
+  .field > label,
+  .field-label {
+    display: block;
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-fg-ink-muted);
+  }
+  .field > input,
+  .field > select,
+  .field > textarea {
+    width: 100%;
+    min-height: 3.25rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0;
+    background: transparent;
+    color: var(--color-fg-ink);
+    border: 0;
+    border-bottom: 1px solid var(--color-ink-line);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    transition:
+      border-color 220ms var(--ease-out-expo),
+      box-shadow 220ms var(--ease-out-expo);
+  }
+  .field > textarea {
+    min-height: 7rem;
+    resize: vertical;
+  }
+  .field > input::placeholder,
+  .field > textarea::placeholder {
+    color: var(--color-fg-ink-muted);
+    opacity: 0.6;
+  }
+  .field > input:focus,
+  .field > select:focus,
+  .field > textarea:focus {
+    outline: none;
+    border-color: var(--color-voltage);
+    box-shadow: 0 1px 0 0 var(--color-voltage);
+  }
+  .field > select {
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .on-bone .field > label,
+  .on-bone .field-label {
+    color: var(--color-fg-bone-muted);
+  }
+  .on-bone .field > input,
+  .on-bone .field > select,
+  .on-bone .field > textarea {
+    color: var(--color-fg-bone);
+    border-bottom-color: var(--color-bone-line);
+  }
+  .on-bone .field > input:focus,
+  .on-bone .field > select:focus,
+  .on-bone .field > textarea:focus {
+    border-color: var(--color-voltage-ink);
+    box-shadow: 0 1px 0 0 var(--color-voltage-ink);
+  }
+
+  /* ---------- Bone (light) sections ---------- */
+  .on-bone {
+    background: var(--color-bone);
+    color: var(--color-fg-bone);
+  }
+  .on-bone * {
+    border-color: var(--color-bone-line);
+  }
+
+  /* ---------- FAQ: native <details>, no accordion JS ---------- */
+  .faq-item {
+    border-top: 1px solid var(--color-bone-line);
+  }
+  .faq-item:last-of-type {
+    border-bottom: 1px solid var(--color-bone-line);
+  }
+
+  .faq-item > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-size: clamp(1.125rem, 1.9vw, 1.4rem);
+    line-height: 1.25;
+    transition: color 200ms var(--ease-out-expo);
+  }
+  .faq-item > summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item > summary:hover {
+    color: var(--color-voltage-ink);
+  }
+
+  /* Plus that becomes a minus. Two hairlines, one rotates away. */
+  .faq-sign {
+    position: relative;
+    flex: none;
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  .faq-sign::before,
+  .faq-sign::after {
+    content: "";
+    position: absolute;
+    inset: 50% 0 auto 0;
+    height: 1px;
+    background: currentColor;
+    transition: transform 320ms var(--ease-out-expo);
+  }
+  .faq-sign::after {
+    transform: rotate(90deg);
+  }
+  .faq-item[open] .faq-sign::after {
+    transform: rotate(0deg);
+  }
+
+  .faq-body {
+    padding-bottom: 1.75rem;
+    max-width: 46rem;
+    color: var(--color-fg-bone-muted);
+  }
+
+  /* Height animation where the browser supports it; instant open where it doesn't. */
+  @supports selector(::details-content) {
+    .faq-item {
+      interpolate-size: allow-keywords;
+    }
+    .faq-item::details-content {
+      block-size: 0;
+      overflow: clip;
+      opacity: 0;
+      transition:
+        block-size 420ms var(--ease-out-expo),
+        content-visibility 420ms allow-discrete,
+        opacity 300ms var(--ease-out-expo);
+    }
+    .faq-item[open]::details-content {
+      block-size: auto;
+      opacity: 1;
+    }
+  }
+
+  /* ---------- Link underline that grows from the left ---------- */
+  .link-slide {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 2px;
+  }
+  .link-slide::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 340ms var(--ease-out-expo);
+  }
+  .link-slide:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+@layer utilities {
+  /* ---------- Texture: film grain. Fixed, cheap, never scrolls. ---------- */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+  }
+
+  /* ---------- The single, intentional light sweep. One per page, hero only. ---------- */
+  .sweep {
+    position: absolute;
+    pointer-events: none;
+    inset-inline: -20%;
+    top: -30%;
+    height: 130%;
+    background: radial-gradient(
+      55% 45% at 50% 45%,
+      rgb(241 136 53 / 0.17) 0%,
+      rgb(241 136 53 / 0.06) 38%,
+      transparent 72%
+    );
+    animation: sweep-drift 26s var(--ease-out-expo) infinite alternate;
+  }
+
+  @keyframes sweep-drift {
+    from {
+      transform: translate3d(-6%, 0, 0) scale(1);
+      opacity: 0.75;
+    }
+    to {
+      transform: translate3d(6%, -3%, 0) scale(1.12);
+      opacity: 1;
+    }
+  }
+
+  /* ---------- Entrance sequence: one strong reveal, staggered by index ---------- */
+  .reveal > * {
+    opacity: 0;
+    transform: translate3d(0, 1.4rem, 0);
+    transition:
+      opacity 900ms var(--ease-out-expo),
+      transform 900ms var(--ease-out-expo);
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+  /* `.reveal` may sit on the observed element itself or anywhere beneath it */
+  .reveal.is-in > *,
+  .is-in .reveal > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Display headings wipe up from a clipped baseline — the editorial signature */
+  .wipe {
+    display: block;
+    overflow: hidden;
+  }
+  .wipe > span {
+    display: block;
+    transform: translate3d(0, 105%, 0);
+    transition: transform 1100ms var(--ease-out-expo);
+    transition-delay: calc(var(--i, 0) * 110ms);
+  }
+  .is-in .wipe > span {
+    transform: none;
+  }
+
+  /* ---------- Phone mock: purchase state ⇄ delivered state, on a loop ---------- */
+  .phone-screen {
+    animation-duration: 9s;
+    animation-iteration-count: infinite;
+    animation-timing-function: var(--ease-out-expo);
+  }
+  .phone-screen-a {
+    animation-name: phone-a;
+  }
+  .phone-screen-b {
+    animation-name: phone-b;
+  }
+
+  /* Each screen holds for ~3.5s, then hands over. The outgoing state lifts slightly
+     and the incoming one settles — a state change, not a slideshow. */
+  @keyframes phone-a {
+    0%, 40% { opacity: 1; transform: translate3d(0, 0, 0); }
+    48%, 92% { opacity: 0; transform: translate3d(0, -1rem, 0); }
+    100% { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+  @keyframes phone-b {
+    0%, 40% { opacity: 0; transform: translate3d(0, 1rem, 0); }
+    48%, 92% { opacity: 1; transform: translate3d(0, 0, 0); }
+    100% { opacity: 0; transform: translate3d(0, 1rem, 0); }
+  }
+
+  /* Contour linework drifts almost imperceptibly — depth without decoration */
+  .contour-drift {
+    animation: contour-drift 44s linear infinite alternate;
+  }
+  @keyframes contour-drift {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(-2.5%, 1.5%, 0) scale(1.06);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    .sweep,
+    .contour-drift {
+      animation: none;
+    }
+    /* Hold the purchase state; the delivered state stays out of the flow */
+    .phone-screen {
+      animation: none;
+    }
+    .phone-screen-b {
+      opacity: 0;
+    }
+    .reveal > *,
+    .wipe > span {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}
