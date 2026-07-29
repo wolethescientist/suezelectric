@@ -26,8 +26,18 @@ export function Reveal({
 
   useEffect(() => {
     if (immediate) {
-      const t = setTimeout(() => setInView(true), 60 + delay);
-      return () => clearTimeout(t);
+      // Two frames, not a timer: start on the very next paint so the hero has no
+      // dead time before it moves. A setTimeout here just added latency.
+      let raf2 = 0;
+      const raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(() =>
+          delay ? setTimeout(() => setInView(true), delay) : setInView(true),
+        );
+      });
+      return () => {
+        cancelAnimationFrame(raf1);
+        cancelAnimationFrame(raf2);
+      };
     }
     const el = ref.current;
     if (!el) return;

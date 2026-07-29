@@ -41,6 +41,9 @@
   --text-micro: 0.6875rem;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Entrances use a shorter tail than expo — expo creeps for its final third,
+     which reads as sluggish even at a modest duration. */
+  --ease-entrance: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
@@ -473,11 +476,19 @@
   /* ---------- Entrance sequence: one strong reveal, staggered by index ---------- */
   .reveal > * {
     opacity: 0;
-    transform: translate3d(0, 1.4rem, 0);
+    transform: translate3d(0, 0.7rem, 0);
     transition:
-      opacity 900ms var(--ease-out-expo),
-      transform 900ms var(--ease-out-expo);
-    transition-delay: calc(var(--i, 0) * 90ms);
+      opacity 460ms var(--ease-entrance),
+      transform 460ms var(--ease-entrance);
+    transition-delay: calc(var(--i, 0) * 45ms);
+  }
+
+  /* A heading that contains a wipe animates via the wipe alone. Fading and lifting
+     the same text at the same time is what made the hero feel sluggish. */
+  .reveal > *:has(.wipe) {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
   /* `.reveal` may sit on the observed element itself or anywhere beneath it */
   .reveal.is-in > *,
@@ -494,8 +505,8 @@
   .wipe > span {
     display: block;
     transform: translate3d(0, 105%, 0);
-    transition: transform 1100ms var(--ease-out-expo);
-    transition-delay: calc(var(--i, 0) * 110ms);
+    transition: transform 620ms var(--ease-entrance);
+    transition-delay: calc(var(--i, 0) * 60ms);
   }
   .is-in .wipe > span {
     transform: none;
