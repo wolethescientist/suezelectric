@@ -474,43 +474,29 @@
   }
 
   /* ---------- Entrance sequence: one strong reveal, staggered by index ---------- */
+  /* Entrance system. The hidden state is applied by a class that is REMOVED to
+     reveal, so no rule has to out-specify another — the previous base/override pair
+     was fragile and silently lost the cascade on one of the sites. */
   .reveal > * {
-    opacity: 0;
-    transform: translate3d(0, 0.7rem, 0);
     transition:
       opacity 460ms var(--ease-entrance),
       transform 460ms var(--ease-entrance);
     transition-delay: calc(var(--i, 0) * 45ms);
   }
-
-  /* A heading that contains a wipe animates via the wipe alone. Fading and lifting
-     the same text at the same time is what made the hero feel sluggish. */
-  .reveal > *:has(.wipe) {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  /* `.reveal` may sit on the observed element itself or anywhere beneath it */
-  .reveal.is-in > *,
-  .is-in .reveal > * {
-    opacity: 1;
-    transform: none;
+  /* :not(:has(.wipe)) keeps headings out of the fade — a wipe already animates them,
+     and doing both at once is what read as sluggish. */
+  .reveal-hidden > *:not(:has(.wipe)),
+  .reveal-hidden .reveal > *:not(:has(.wipe)) {
+    opacity: 0;
+    transform: translate3d(0, 0.7rem, 0);
   }
 
-  /* Display headings wipe up from a clipped baseline — the editorial signature */
   .wipe {
     display: block;
     overflow: hidden;
   }
-  .wipe > span {
-    display: block;
-    transform: translate3d(0, 105%, 0);
-    transition: transform 620ms var(--ease-entrance);
-    transition-delay: calc(var(--i, 0) * 60ms);
-  }
-  .is-in .wipe > span {
-    transform: none;
-  }
+  /* The wipe transform is set inline by WipeLines from React state — CSS only
+     provides the clipping frame here. */
 
   /* ---------- Phone mock: purchase state ⇄ delivered state, on a loop ---------- */
   .phone-screen {
@@ -567,6 +553,7 @@
       opacity: 0;
     }
     .reveal > *,
+    .reveal-hidden > *,
     .wipe > span {
       opacity: 1;
       transform: none;
