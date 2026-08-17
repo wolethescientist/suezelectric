@@ -537,12 +537,30 @@
     }
   }
 
+  /* The market tape moves like a terminal strip; it pauses when inspected. */
+  .market-ticker-track {
+    animation: market-ticker-scroll 38s linear infinite;
+  }
+  .market-ticker-track:hover,
+  .market-ticker-track:focus-within {
+    animation-play-state: paused;
+  }
+  @keyframes market-ticker-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
     .sweep,
-    .contour-drift {
+    .contour-drift,
+    .market-ticker-track {
       animation: none;
     }
     /* Hold the purchase state; the delivered state stays out of the flow */

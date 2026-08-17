@@ -4,7 +4,7 @@ import { Reveal, WipeLines } from "@/components/reveal";
 import { TokenReadout } from "@/components/token-readout";
 import { NumberedRow, PullQuote, SectionHead, StatRow } from "@/components/page-parts";
 import { AppDownloadSection } from "@/components/app-download";
-import { MarketPulse } from "@/components/market-pulse";
+import { MarketTicker } from "@/components/market-ticker";
 
 const DISCOS = [
   "Abuja — AEDC",
@@ -76,6 +76,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ───────────────────────── Market tape (sticky) ───────────────────────── */}
+      <MarketTicker />
 
       {/* ───────────────────────── How it works (bone) ───────────────────────── */}
       <section className="on-bone relative overflow-hidden py-20 lg:py-28">
@@ -194,9 +197,6 @@ export default function HomePage() {
           </div>
         </Reveal>
       </section>
-
-      {/* ───────────────────────── Market pulse (ink) ───────────────────────── */}
-      <MarketPulse />
 
       {/* ───────────────────────── Get the app (ink) ───────────────────────── */}
       <AppDownloadSection />
