@@ -528,6 +528,28 @@
   .contour-drift {
     animation: contour-drift 44s linear infinite alternate;
   }
+
+  /* ---------- Floating power desk ---------- */
+  .chatbot-panel {
+    transform-origin: bottom right;
+    animation: chatbot-in 260ms var(--ease-entrance) both;
+  }
+
+  .chatbot-messages {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ink-line) transparent;
+  }
+
+  @keyframes chatbot-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 0.75rem, 0) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
   @keyframes contour-drift {
     from {
       transform: translate3d(0, 0, 0) scale(1);

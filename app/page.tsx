@@ -5,6 +5,8 @@ import { TokenReadout } from "@/components/token-readout";
 import { NumberedRow, PullQuote, SectionHead, StatRow } from "@/components/page-parts";
 import { AppDownloadSection } from "@/components/app-download";
 import { MarketTicker } from "@/components/market-ticker";
+import { SocialMediaSection } from "@/components/social-media";
+import { ChatbotWidget } from "@/components/chatbot-widget";
 
 const DISCOS = [
   "Abuja — AEDC",
@@ -201,6 +203,38 @@ export default function HomePage() {
       {/* ───────────────────────── Get the app (ink) ───────────────────────── */}
       <AppDownloadSection />
 
+      {/* ───────────────────────── Power desk (bone) ───────────────────────── */}
+      <section className="on-bone relative overflow-hidden border-y border-bone-line py-20 lg:py-28">
+        <Contours origin={{ x: 106, y: 72 }} rings={18} tone="bone" opacity={0.4} />
+        <Reveal className="measure relative">
+          <SectionHead
+            eyebrow="The power desk"
+            title="A clearer next step, whenever you need one."
+            note="Guides and people for the moments around your purchase"
+          />
+
+          <Reveal className="reveal mt-14">
+            <NumberedRow index={1} title="Buying for the first time" meta="Meter check · tariff band · payment options">
+              <p>Learn what to have ready before you buy and how SuezElectric confirms your meter details.</p>
+            </NumberedRow>
+            <NumberedRow index={2} title="Keeping every receipt" meta="History · SMS · email delivery">
+              <p>Your token and receipt stay together in your purchase history, ready when you need to top up again.</p>
+            </NumberedRow>
+            <NumberedRow index={3} title="Speaking to a human" meta="WhatsApp and phone support, 24 hours">
+              <p>When a token needs a closer look, our support team can trace the payment and help you resolve it.</p>
+            </NumberedRow>
+          </Reveal>
+
+          <div className="mt-12 flex flex-wrap gap-3">
+            <Link href="/faq" className="btn btn-ghost">Read the FAQ</Link>
+            <Link href="/contact" className="btn btn-voltage">Contact the power desk</Link>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ───────────────────────── Social media (bone) ───────────────────────── */}
+      <SocialMediaSection />
+
       {/* ───────────────────────── Agent CTA (ink) ───────────────────────── */}
       <section className="relative overflow-hidden py-20 lg:py-28">
         <Contours origin={{ x: 22, y: 50 }} rings={26} opacity={0.7} />
@@ -227,6 +261,8 @@ export default function HomePage() {
           </div>
         </Reveal>
       </section>
+
+      <ChatbotWidget />
     </>
   );
 }
