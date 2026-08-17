@@ -140,10 +140,8 @@ export function SiteFooter() {
             </h3>
             <ul className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
               {[
-                ["Suez Gas Nigeria", "Domestic & commercial LPG"],
-                ["Suez Trading International", "LPG import & bulk haulage"],
-                ["Oribera Limited", "Technical partner"],
-                ["Reimnet Limited", "Technology partner"],
+                ["Suez Group", "Group company"],
+                ["Suez Gas", "Gas operations"],
               ].map(([name, role]) => (
                 <li
                   key={name}

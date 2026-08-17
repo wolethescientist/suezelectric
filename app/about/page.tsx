@@ -17,11 +17,8 @@ export const metadata: Metadata = {
 };
 
 const GROUP = [
-  ["Suez Gas Nigeria", "Domestic and commercial LPG — hotels, bars, eateries, bakeries, estates and private homes.", "Operating since 2012"],
-  ["Suez Trading International", "LPG importation and bulk distribution to off-takers by truck.", "Upstream supply"],
-  ["Oribera Limited", "Technical partner. Platform architecture and DISCO integrations.", "Technical"],
-  ["Reimnet Limited", "Technology partner. Application delivery and infrastructure.", "Technology"],
-  ["Ashfar Limited", "Consultants. Regulatory, commercial and financial advisory.", "Advisory"],
+  ["Suez Group", "The parent group supporting the company’s energy operations.", "Group company"],
+  ["Suez Gas", "Domestic and commercial LPG operations across Abuja and surrounding areas.", "Gas operations"],
 ];
 
 export default function AboutPage() {
@@ -116,7 +113,7 @@ export default function AboutPage() {
           <SectionHead
             eyebrow="The group"
             title="Capacity we did not have to build from nothing."
-            note="Branch network, technical partners and affiliates"
+            note="Group and affiliates"
           />
           <Reveal className="reveal mt-14">
             {GROUP.map(([name, body, tag], i) => (

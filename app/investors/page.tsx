@@ -96,8 +96,8 @@ export default function InvestorsPage() {
               <ul className="mt-6">
                 {[
                   ["SuezElectric Limited", "Electricity vending & e-payments"],
-                  ["Suez Gas Nigeria", "Domestic & commercial LPG distribution"],
-                  ["Suez Trading International", "LPG import, bulk haulage, infrastructure"],
+                  ["Suez Group", "Parent group"],
+                  ["Suez Gas", "Domestic & commercial LPG distribution"],
                 ].map(([name, role]) => (
                   <li
                     key={name}
@@ -114,13 +114,12 @@ export default function InvestorsPage() {
 
             <div style={{ "--i": 1 } as React.CSSProperties}>
               <h3 className="font-label text-[0.6875rem] font-normal uppercase tracking-[0.09em] text-fg-ink-muted">
-                Advisers & partners
+                Group & affiliates
               </h3>
               <ul className="mt-6">
                 {[
-                  ["Oribera Limited", "Technical partner"],
-                  ["Reimnet Limited", "Technology partner"],
-                  ["Ashfar Limited", "Consultants & advisory"],
+                  ["Suez Group", "Group company"],
+                  ["Suez Gas", "Affiliate"],
                 ].map(([name, role]) => (
                   <li
                     key={name}

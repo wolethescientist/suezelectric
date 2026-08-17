@@ -100,11 +100,10 @@ export default function PartnersPage() {
           </div>
 
           <Reveal className="reveal mt-16">
-            <NumberedRow index={1} title="Technical partnership" meta="Oribera · Reimnet">
+            <NumberedRow index={1} title="Group partnership" meta="Suez Group · Suez Gas">
               <p>
-                Continuous improvement and upgrade of the platform through
-                dedicated technical and technology partners, rather than a
-                frozen build.
+                A shared group structure connecting electricity vending with
+                established gas operations.
               </p>
             </NumberedRow>
             <NumberedRow index={2} title="Existing clientele" meta="LPG distribution since 2012">
@@ -119,7 +118,7 @@ export default function PartnersPage() {
                 through partner agents, not just an internet connection.
               </p>
             </NumberedRow>
-            <NumberedRow index={4} title="Group capacity" meta="Suez Gas · Suez Trading International">
+            <NumberedRow index={4} title="Group capacity" meta="Suez Group · Suez Gas">
               <p>
                 LPG importation, bulk haulage and domestic distribution already
                 running, with the logistics and settlement discipline that

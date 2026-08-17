@@ -4,6 +4,7 @@ import { Reveal, WipeLines } from "@/components/reveal";
 import { TokenReadout } from "@/components/token-readout";
 import { NumberedRow, PullQuote, SectionHead, StatRow } from "@/components/page-parts";
 import { AppDownloadSection } from "@/components/app-download";
+import { MarketPulse } from "@/components/market-pulse";
 
 const DISCOS = [
   "Abuja — AEDC",
@@ -174,7 +175,7 @@ export default function HomePage() {
               Since 2012
             </div>
             <div className="mt-8" style={{ "--i": 1 } as React.CSSProperties}>
-              <PullQuote attribution="Suez Gas Nigeria · Suez Trading International · SuezElectric">
+              <PullQuote attribution="Suez Group · Suez Gas">
                 We spent eight years delivering cooking gas to the same estates,
                 bars and bakeries we now sell electricity to. That is not a
                 pivot. That is a second product on a route we already know.
@@ -193,6 +194,9 @@ export default function HomePage() {
           </div>
         </Reveal>
       </section>
+
+      {/* ───────────────────────── Market pulse (ink) ───────────────────────── */}
+      <MarketPulse />
 
       {/* ───────────────────────── Get the app (ink) ───────────────────────── */}
       <AppDownloadSection />
