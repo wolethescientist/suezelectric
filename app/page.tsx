@@ -4,23 +4,9 @@ import { Reveal, WipeLines } from "@/components/reveal";
 import { TokenReadout } from "@/components/token-readout";
 import { NumberedRow, PullQuote, SectionHead, StatRow } from "@/components/page-parts";
 import { AppDownloadSection } from "@/components/app-download";
-import { MarketTicker } from "@/components/market-ticker";
 import { SocialMediaSection } from "@/components/social-media";
 import { ChatbotWidget } from "@/components/chatbot-widget";
-
-const DISCOS = [
-  "Abuja — AEDC",
-  "Ikeja — IKEDC",
-  "Eko — EKEDC",
-  "Ibadan — IBEDC",
-  "Enugu — EEDC",
-  "Kaduna — KAEDCO",
-  "Kano — KEDCO",
-  "Jos — JEDPLC",
-  "Benin — BEDC",
-  "Port Harcourt — PHED",
-  "Yola — YEDC",
-];
+import { DISCOS, TOKEN_DELIVERY_SHORT } from "@/lib/site";
 
 export default function HomePage() {
   return (
@@ -79,15 +65,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ───────────────────────── Market tape (sticky) ───────────────────────── */}
-      <MarketTicker />
-
       {/* ───────────────────────── How it works (bone) ───────────────────────── */}
       <section className="on-bone relative overflow-hidden py-20 lg:py-28">
         <Contours origin={{ x: -8, y: 62 }} rings={22} tone="bone" opacity={0.5} />
         <Reveal className="measure relative">
           <SectionHead
-            eyebrow="Three seconds, four taps"
+            eyebrow="Four taps, fourteen seconds"
             title="The whole transaction, start to token."
             note="Works on prepaid, postpaid and net-metered accounts"
           />
@@ -192,7 +175,7 @@ export default function HomePage() {
                   { label: "LPG operations since", value: "2012" },
                   { label: "Vending platform since", value: "2020" },
                   { label: "Distribution companies", value: "11" },
-                  { label: "Median token delivery", value: "14s" },
+                  { label: "Median token delivery", value: TOKEN_DELIVERY_SHORT },
                 ]}
               />
             </div>

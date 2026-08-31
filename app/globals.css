@@ -479,9 +479,10 @@
      was fragile and silently lost the cascade on one of the sites. */
   .reveal > * {
     transition:
-      opacity 460ms var(--ease-entrance),
-      transform 460ms var(--ease-entrance);
-    transition-delay: calc(var(--i, 0) * 45ms);
+      opacity 380ms var(--ease-entrance),
+      transform 380ms var(--ease-entrance);
+    /* Capped so a six-item grid finishes in ~200ms of stagger, not ~700ms. */
+    transition-delay: calc(min(var(--i, 0), 6) * 28ms);
   }
   /* :not(:has(.wipe)) keeps headings out of the fade — a wipe already animates them,
      and doing both at once is what read as sluggish. */
@@ -559,30 +560,12 @@
     }
   }
 
-  /* The market tape moves like a terminal strip; it pauses when inspected. */
-  .market-ticker-track {
-    animation: market-ticker-scroll 38s linear infinite;
-  }
-  .market-ticker-track:hover,
-  .market-ticker-track:focus-within {
-    animation-play-state: paused;
-  }
-  @keyframes market-ticker-scroll {
-    from {
-      transform: translate3d(0, 0, 0);
-    }
-    to {
-      transform: translate3d(-50%, 0, 0);
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
     .sweep,
-    .contour-drift,
-    .market-ticker-track {
+    .contour-drift {
       animation: none;
     }
     /* Hold the purchase state; the delivered state stays out of the flow */

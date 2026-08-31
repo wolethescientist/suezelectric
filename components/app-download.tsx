@@ -1,5 +1,6 @@
 import { Contours } from "./texture";
 import { Reveal, WipeLines } from "./reveal";
+import { TOKEN_DELIVERY_SHORT } from "@/lib/site";
 
 const IOS_URL = "https://apps.apple.com/us/app/suezelectric/id1543156442";
 const ANDROID_URL =
@@ -217,7 +218,7 @@ function ScreenToken() {
         <span className="font-display text-[1.375rem] leading-none">Delivered</span>
         <span className="flex items-center gap-1.5 text-[0.625rem] uppercase tracking-[0.075em] text-voltage">
           <span className="h-1.5 w-1.5 rounded-full bg-voltage" />
-          12s
+          {TOKEN_DELIVERY_SHORT}
         </span>
       </div>
 

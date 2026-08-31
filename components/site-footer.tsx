@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Contours, Guilloche } from "./texture";
 import { Logo } from "./logo";
 import { StoreButtons } from "./app-download";
+import { TOKEN_DELIVERY_LONG } from "@/lib/site";
 
 const COLUMNS = [
   {
@@ -53,7 +54,7 @@ export function SiteFooter() {
         <div className="measure grid grid-cols-2 divide-ink-line md:grid-cols-4 md:divide-x">
           {[
             ["Coverage", "11 DISCOs"],
-            ["Median delivery", "14 seconds"],
+            ["Median delivery", TOKEN_DELIVERY_LONG],
             ["Agent commission", "Up to 3%"],
             ["Operating since", "2020"],
           ].map(([label, value], i) => (

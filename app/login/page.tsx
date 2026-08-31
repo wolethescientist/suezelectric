@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AuthShell } from "@/components/auth-shell";
+import { TOKEN_DELIVERY_SHORT } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Log in",
@@ -14,7 +15,7 @@ export default function LoginPage() {
       lines={["Welcome back."]}
       lede="Your saved meters, wallet balance and every token you have ever bought are one password away."
       plate={{
-        stat: "14s",
+        stat: TOKEN_DELIVERY_SHORT,
         label: "Median token delivery",
         body: "Log in, pick a saved meter, pay from your wallet. The whole thing is shorter than the queue used to be.",
       }}

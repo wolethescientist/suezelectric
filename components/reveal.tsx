@@ -16,8 +16,77 @@ const RevealCtx = createContext(true);
 const ENTRANCE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
 /**
- * Adds the entrance state for its subtree. IntersectionObserver instead of a motion
- * library — the whole system is a few dozen lines and ships no runtime.
+ * Fraction of the viewport height at which a block commits to revealing. At 0.88 a
+ * section starts its entrance as it crosses into the bottom eighth of the screen,
+ * so an unhurried reader still sees the animation and a fast one finds it settled.
+ */
+const TRIGGER = 0.88;
+
+/* ---------------------------------------------------------------------------
+ * One shared scroll pass, not an IntersectionObserver per block.
+ *
+ * The observer version left content permanently invisible: a large scroll jump
+ * could move a section from below the root to inside it without any sampled frame
+ * catching the crossing, and since the entrance state is "hidden until told
+ * otherwise", a missed callback meant a blank screen that never healed. Polling the
+ * pending blocks on a rAF-throttled scroll is a dozen getBoundingClientRect reads on
+ * a page that has at most fifteen of them, and it cannot miss: any scroll, resize or
+ * orientation change re-checks everything still waiting.
+ * ------------------------------------------------------------------------- */
+
+type Pending = { el: HTMLElement; fire: () => void };
+
+const pending = new Set<Pending>();
+let listening = false;
+let queued = false;
+
+function sweep() {
+  queued = false;
+  const limit = window.innerHeight * TRIGGER;
+  for (const entry of pending) {
+    const rect = entry.el.getBoundingClientRect();
+    // `top < limit` also covers anything already scrolled past (negative top),
+    // which is how a restored scroll position or an in-page anchor lands.
+    if (rect.top < limit) {
+      pending.delete(entry);
+      entry.fire();
+    }
+  }
+  if (pending.size === 0) stopListening();
+}
+
+function schedule() {
+  if (queued) return;
+  queued = true;
+  requestAnimationFrame(sweep);
+}
+
+function startListening() {
+  if (listening) return;
+  listening = true;
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule, { passive: true });
+}
+
+function stopListening() {
+  if (!listening) return;
+  listening = false;
+  window.removeEventListener("scroll", schedule);
+  window.removeEventListener("resize", schedule);
+}
+
+function register(entry: Pending) {
+  pending.add(entry);
+  startListening();
+  schedule();
+  return () => {
+    pending.delete(entry);
+    if (pending.size === 0) stopListening();
+  };
+}
+
+/**
+ * Adds the entrance state for its subtree.
  *
  * Children stagger via CSS (`.reveal-hidden > *`), applied by a class that is
  * REMOVED to reveal, so nothing has to out-specify anything. Headlines go through
@@ -69,17 +138,11 @@ export function Reveal({
     const el = ref.current;
     if (!el) return;
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          fire();
-          io.disconnect(); // reveal once, never re-animate on scroll back
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    const unregister = register({
+      el,
+      fire: delay ? () => window.setTimeout(fire, delay) : fire,
+    });
+    return unregister;
   }, [immediate, delay]);
 
   return (
@@ -115,8 +178,8 @@ export function WipeLines({
             style={{
               display: "block",
               transform: inView ? "none" : "translate3d(0, 105%, 0)",
-              transition: `transform 620ms ${ENTRANCE}`,
-              transitionDelay: `${i * 60}ms`,
+              transition: `transform 560ms ${ENTRANCE}`,
+              transitionDelay: `${i * 55}ms`,
             }}
           >
             {line}

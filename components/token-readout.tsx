@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { TOKEN_DELIVERY_SHORT } from "@/lib/site";
 
 const TOKEN = "48210975336471028855";
 const GROUPS = [0, 4, 8, 12, 16];
@@ -110,7 +111,7 @@ export function TokenReadout() {
         <div className="mt-7 grid grid-cols-3 gap-4 border-t border-ink-line pt-5 font-label text-[0.6875rem] uppercase tracking-[0.09em] text-fg-ink-muted">
           <Stat label="Paid" value="₦5,000" />
           <Stat label="Units" value={`${units.toFixed(1)} kWh`} />
-          <Stat label="Elapsed" value={done ? "12s" : "—"} />
+          <Stat label="Elapsed" value={done ? TOKEN_DELIVERY_SHORT : "—"} />
         </div>
       </div>
     </figure>

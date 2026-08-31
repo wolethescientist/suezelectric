@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "textures": "node scripts/generate-textures.mjs",
+    "prebuild": "node scripts/generate-textures.mjs",
     "build": "next build",
     "start": "next start"
   },
