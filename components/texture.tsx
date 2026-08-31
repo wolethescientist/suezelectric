@@ -46,11 +46,13 @@ export function Contours({
       {/* Centring lives on this wrapper. The drift animation owns `transform` on the
           image itself — putting both on one element makes the keyframe eat the centring. */}
       <div
-        className="absolute h-[165%] w-[165%] max-w-none"
+        className="contour-parallax absolute h-[165%] w-[165%] max-w-none"
         style={{
           left: `${origin.x}%`,
           top: `${origin.y}%`,
-          transform: "translate(-50%, -50%)",
+          // `translate` rather than `transform`: the scroll-linked parallax below
+          // animates `transform`, and one element cannot hold both on one property.
+          translate: "-50% -50%",
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- static SVG, no optimisation to do */}
@@ -90,7 +92,7 @@ export function Guilloche({
   strokeOpacity?: number;
 }) {
   return (
-    <span aria-hidden="true" className={`block ${className}`}>
+    <span aria-hidden="true" className={`guilloche-plate block ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element -- static SVG, no optimisation to do */}
       <img
         src={GUILLOCHE_FILES[stroke] ?? GUILLOCHE_FILES["#f18835"]}

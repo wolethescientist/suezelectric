@@ -38,17 +38,5 @@ export const SOCIAL_PROFILES = [
   "https://www.facebook.com/suezelectric",
 ];
 
-/** The eleven distribution companies the platform vends to. */
-export const DISCOS = [
-  "Abuja — AEDC",
-  "Ikeja — IKEDC",
-  "Eko — EKEDC",
-  "Ibadan — IBEDC",
-  "Enugu — EEDC",
-  "Kaduna — KAEDCO",
-  "Kano — KEDCO",
-  "Jos — JEDPLC",
-  "Benin — BEDC",
-  "Port Harcourt — PHED",
-  "Yola — YEDC",
-];
+/* The eleven licensees themselves live in lib/nigeria-map.ts, next to the
+   territory geometry that names them — one source of truth, not two. */

@@ -6,7 +6,8 @@ import { NumberedRow, PullQuote, SectionHead, StatRow } from "@/components/page-
 import { AppDownloadSection } from "@/components/app-download";
 import { SocialMediaSection } from "@/components/social-media";
 import { ChatbotWidget } from "@/components/chatbot-widget";
-import { DISCOS, TOKEN_DELIVERY_SHORT } from "@/lib/site";
+import { CoverageMap } from "@/components/coverage-map";
+import { TOKEN_DELIVERY_SHORT } from "@/lib/site";
 
 export default function HomePage() {
   return (
@@ -53,14 +54,17 @@ export default function HomePage() {
           </div>
         </Reveal>
 
-        {/* Coverage ticker: a measurement scale, not a logo wall */}
+        {/* A measurement scale, not a logo wall. The eleven licensees are named on
+            the coverage plate below rather than listed twice. */}
         <div className="measure relative mt-16 lg:mt-20">
           <div className="rule-ticks" />
           <div className="flex flex-wrap items-baseline gap-x-7 gap-y-2 pt-6 font-label text-[0.6875rem] uppercase tracking-[0.075em] text-fg-ink-muted">
             <span className="text-voltage">Coverage</span>
-            {DISCOS.map((d) => (
-              <span key={d}>{d}</span>
-            ))}
+            <span>Eleven distribution companies</span>
+            <span>Sokoto to Port Harcourt</span>
+            <a href="#coverage" className="link-slide text-fg-ink">
+              See the map
+            </a>
           </div>
         </div>
       </section>
@@ -104,6 +108,9 @@ export default function HomePage() {
           </Reveal>
         </Reveal>
       </section>
+
+      {/* ───────────────────────── Coverage plate (ink) ───────────────────────── */}
+      <CoverageMap />
 
       {/* ───────────────────────── Why (ink) ───────────────────────── */}
       <section className="relative overflow-hidden border-y border-ink-line py-20 lg:py-28">

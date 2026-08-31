@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "textures": "node scripts/generate-textures.mjs",
+    "map": "node scripts/generate-map.mjs",
     "prebuild": "node scripts/generate-textures.mjs",
     "build": "next build",
     "start": "next start"

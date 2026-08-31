@@ -412,6 +412,113 @@
     }
   }
 
+  /* ---------- Coverage plate ---------- */
+  .coverage-plate {
+    /* The plate is wide and short; cap it so it never dwarfs the number beside it. */
+    max-height: 34rem;
+  }
+  .coverage-territory {
+    cursor: pointer;
+  }
+  .coverage-territory path {
+    transition:
+      stroke 260ms var(--ease-out-expo),
+      stroke-width 260ms var(--ease-out-expo),
+      fill 260ms var(--ease-out-expo);
+  }
+  /* Dim everything else once one territory is picked, so the eye has one job. */
+  .coverage-plate:has(.coverage-territory[data-on]) .coverage-territory:not([data-on]) {
+    opacity: 0.4;
+  }
+  .coverage-territory {
+    transition: opacity 260ms var(--ease-out-expo);
+  }
+
+  /* SVG text does not inherit the page font stack, so name it explicitly. The
+     sizes are viewBox units, not pixels — the plate scales, and so do these. */
+  .coverage-hq-label,
+  .coverage-hq-sub {
+    font-family: var(--font-label);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+  }
+  .coverage-hq-label {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .coverage-hq-sub {
+    font-size: 11px;
+  }
+
+  .coverage-hq-ring {
+    fill: none;
+    stroke: var(--color-voltage);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: hq-ping 3.2s var(--ease-out-expo) infinite;
+  }
+  @keyframes hq-ping {
+    0% { transform: scale(0.3); opacity: 0.9; }
+    70%, 100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  /* ---------- Duotone photographic plate ----------
+     Photography enters the palette rather than sitting on top of it: the image is
+     reduced to luminance, then that luminance drives a two-stop ink-to-voltage ramp.
+     Drop any JPEG in and it comes out belonging to the page. */
+  .plate {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-ink-2);
+    isolation: isolate;
+  }
+  .plate > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.12) brightness(0.92);
+  }
+  /* The voltage stop, multiplied into the shadows */
+  .plate::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgb(241 136 53 / 0.42) 0%,
+      rgb(15 79 72 / 0.24) 100%
+    );
+    mix-blend-mode: color;
+  }
+  /* …and a floor of ink so it never floats free of the surface behind it */
+  .plate::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      rgb(8 9 10 / 0.72) 0%,
+      rgb(8 9 10 / 0.1) 55%,
+      transparent 100%
+    );
+  }
+  .on-bone .plate > img {
+    filter: grayscale(1) contrast(1.08) brightness(1.04);
+  }
+  .on-bone .plate::before {
+    background: linear-gradient(
+      to top,
+      rgb(237 232 223 / 0.6) 0%,
+      transparent 60%
+    );
+  }
+
   /* ---------- Link underline that grows from the left ---------- */
   .link-slide {
     position: relative;
@@ -560,13 +667,84 @@
     }
   }
 
+  /* ---------- Scroll-linked motion ----------
+     Driven by the reader's own scroll rather than fired once on entry, so the page
+     has continuous depth instead of a sequence of switches. `view()` timelines are
+     a CSS-only feature: where they are unsupported nothing is declared and every
+     element simply sits at its static position. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      /* Contour layers travel slower than the page. */
+      .contour-parallax {
+        animation: layer-parallax linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+      @keyframes layer-parallax {
+        from { transform: translate3d(0, -5%, 0); }
+        to   { transform: translate3d(0, 5%, 0); }
+      }
+
+      /* The banknote plate turns a few degrees as it passes — an engraved disc on
+         a press, not a spinning graphic. */
+      .guilloche-plate > img {
+        animation: plate-turn linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+      @keyframes plate-turn {
+        from { transform: rotate(-11deg) scale(0.96); }
+        to   { transform: rotate(11deg) scale(1.04); }
+      }
+
+      /* Measurement rules draw themselves in from the left. */
+      .rule-ticks {
+        animation: rule-draw linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 22%;
+        transform-origin: left center;
+      }
+      @keyframes rule-draw {
+        from { transform: scaleX(0); }
+        to   { transform: scaleX(1); }
+      }
+
+      /* The coverage plate settles as it arrives. */
+      .coverage-plate {
+        animation: plate-settle linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 30%;
+      }
+      @keyframes plate-settle {
+        from { transform: scale(0.94) translate3d(0, 3%, 0); opacity: 0.35; }
+        to   { transform: none; opacity: 1; }
+      }
+    }
+  }
+
+  /* ---------- Page transition ----------
+     app/template.tsx remounts on every navigation, so this plays on the incoming
+     page while the header and footer — which live in the layout — stay put. */
+  .page-enter {
+    animation: page-enter 420ms var(--ease-entrance) both;
+  }
+  @keyframes page-enter {
+    from { opacity: 0; transform: translate3d(0, 0.85rem, 0); }
+    to   { opacity: 1; transform: none; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
     .sweep,
-    .contour-drift {
+    .contour-drift,
+    .coverage-hq-ring,
+    .page-enter {
       animation: none;
+    }
+    .coverage-hq-ring {
+      opacity: 0.5;
     }
     /* Hold the purchase state; the delivered state stays out of the flow */
     .phone-screen {

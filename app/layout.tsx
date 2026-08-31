@@ -84,7 +84,7 @@ const jsonLd = {
       name: COMPANY.name,
       legalName: COMPANY.legalName,
       url: SITE_URL,
-      logo: `${SITE_URL}/logo.png`,
+      logo: `${SITE_URL}/wordmark-ink.svg`,
       image: `${SITE_URL}/opengraph-image.jpg`,
       description: DESCRIPTION,
       foundingDate: COMPANY.foundingYear,
@@ -151,6 +151,7 @@ export default function RootLayout({
             the connections here removes a round trip from the headline's paint. */}
         <link rel="preconnect" href="https://api.fontshare.com" />
         <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="" />
+        <link rel="preload" as="image" type="image/svg+xml" href="/wordmark-ink.svg" />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger -- static, build-time object

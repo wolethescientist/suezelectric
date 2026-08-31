@@ -1,14 +1,21 @@
-import Image from "next/image";
 import Link from "next/link";
-import logoOnInk from "@/public/logo-dark.png";
-import logoOnBone from "@/public/logo.png";
 
 /**
- * The real SuezElectric lockup. Two variants of the same artwork: the wordmark's
- * "Electric" is black in the supplied file, so the ink variant carries a bone
- * "Electric" instead. The bulb's bolt is a genuine knockout in the original, so it
- * takes on whatever sits behind it — which is why both variants are transparent PNGs
- * rather than one file with a baked background.
+ * The SuezElectric lockup, as vector.
+ *
+ * It was two transparent PNGs — one per background — at 1248px wide, which the
+ * footer drew at up to 896 CSS px on a 2x display. That is the most brand-critical
+ * mark on the site rendered past its native resolution, and it showed.
+ *
+ * These are traced from that original artwork and kept as static files rather than
+ * inlined: an inline <svg> would put ~8KB of path data into the HTML *and* again
+ * into the RSC flight payload of every page, whereas a file is fetched once and
+ * cached for the whole session. Two variants for two surfaces — the same reason the
+ * PNGs came in pairs — because the "Electric" half and the orange both have to
+ * change to stay legible on bone.
+ *
+ * The bolt inside the bulb is a genuine knockout in the original and stays one here,
+ * so it takes on whatever sits behind it.
  */
 export function Logo({
   tone = "ink",
@@ -17,20 +24,26 @@ export function Logo({
 }: {
   tone?: "ink" | "bone";
   className?: string;
+  /** Set on the header lockup so it is not deprioritised behind body content. */
   priority?: boolean;
 }) {
   return (
-    <Image
-      src={tone === "ink" ? logoOnInk : logoOnBone}
+    // eslint-disable-next-line @next/next/no-img-element -- static SVG, no optimisation to do
+    <img
+      src={tone === "bone" ? "/wordmark-bone.svg" : "/wordmark-ink.svg"}
       alt="SuezElectric"
+      width={1248}
+      height={286}
       className={className}
-      priority={priority}
-      sizes="(max-width: 640px) 160px, 320px"
+      decoding={priority ? "sync" : "async"}
+      loading={priority ? "eager" : "lazy"}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- fetchPriority lands in React 19 typings
+      {...({ fetchPriority: priority ? "high" : undefined } as any)}
     />
   );
 }
 
-/** Header lockup: the logo plus the registration number as a mono tick. */
+/** Header lockup: the logo plus the registration number as a quiet tick. */
 export function Wordmark({
   tone = "ink",
   priority = false,
