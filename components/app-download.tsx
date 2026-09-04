@@ -1,6 +1,7 @@
 import { Contours } from "./texture";
 import { Reveal, WipeLines } from "./reveal";
 import { TOKEN_DELIVERY_SHORT } from "@/lib/site";
+import { PhoneBuyForm } from "./phone-buy-form";
 
 const IOS_URL = "https://apps.apple.com/us/app/suezelectric/id1543156442";
 const ANDROID_URL =
@@ -361,6 +362,21 @@ export function AppDownloadSection() {
             </ul>
 
             <StoreButtons className="mt-9" />
+
+            <div className="mt-10 border-t border-ink-line pt-8">
+              <div className="font-label text-[0.6875rem] uppercase tracking-[0.09em] text-fg-ink-muted">
+                Or vend instantly from web
+              </div>
+              <div className="mt-4">
+                <PhoneBuyForm
+                  layout="inline"
+                  tone="ink"
+                  placeholder="080 0000 0000"
+                  buttonText="Buy units"
+                  subtext="No app download required · Instant SMS delivery"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="reveal">

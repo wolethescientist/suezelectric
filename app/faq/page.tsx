@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Contours } from "@/components/texture";
 import { Reveal } from "@/components/reveal";
 import { PageHero, SectionHead } from "@/components/page-parts";
+import { PhoneBuyForm } from "@/components/phone-buy-form";
 
 export const metadata: Metadata = {
   title: "Frequently asked questions",
@@ -127,15 +128,39 @@ export default function FaqPage() {
 
       <section className="relative overflow-hidden py-20 lg:py-24">
         <Contours origin={{ x: 24, y: 50 }} rings={24} opacity={0.6} />
-        <Reveal className="measure relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <h2 className="max-w-xl text-display-m">Still stuck? Call, do not queue.</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/contact" className="btn btn-voltage">
-              Contact support
-            </Link>
-            <a href="tel:+2349080070070" className="btn btn-ghost">
-              +234 908 007 0070
-            </a>
+        <Reveal className="measure relative">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div>
+              <div className="eyebrow">Ready to recharge?</div>
+              <h2 className="mt-4 max-w-xl text-display-m">Still have questions? Call, do not queue.</h2>
+              <p className="mt-4 max-w-md text-fg-ink-muted">
+                Our support team is live 24/7 on phone and WhatsApp. Or enter your phone number to vend electricity right now.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link href="/contact" className="btn btn-voltage">
+                  Contact support
+                </Link>
+                <a href="tel:+2349080070070" className="btn btn-ghost">
+                  +234 908 007 0070
+                </a>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-ink-line bg-ink-2/70 p-7 sm:p-8">
+              <div className="font-label text-[0.6875rem] uppercase tracking-[0.09em] text-fg-ink-muted">
+                Instant Meter Recharge
+              </div>
+              <div className="mt-4">
+                <PhoneBuyForm
+                  layout="stacked"
+                  tone="ink"
+                  placeholder="080 0000 0000"
+                  buttonText="Buy unit"
+                  showAmountChips
+                  subtext="Token delivered by SMS and saved to your account history."
+                />
+              </div>
+            </div>
           </div>
         </Reveal>
       </section>

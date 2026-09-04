@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Contours, Guilloche } from "@/components/texture";
 import { Reveal } from "@/components/reveal";
 import { NumberedRow, PageHero, SectionHead, StatRow } from "@/components/page-parts";
+import { PhoneBuyForm } from "@/components/phone-buy-form";
 
 export const metadata: Metadata = {
   title: "Become an agent",
@@ -133,17 +134,40 @@ export default function AgentsPage() {
 
       <section className="on-bone relative overflow-hidden py-20 lg:py-24">
         <Contours origin={{ x: 96, y: 50 }} rings={20} tone="bone" opacity={0.45} />
-        <Reveal className="measure relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <h2 className="max-w-xl text-display-m">
-            Bring your counter. We will bring the units.
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/signup" className="btn btn-voltage">
-              Register as an agent
-            </Link>
-            <Link href="/contact" className="btn btn-ghost">
-              Ask a question
-            </Link>
+        <Reveal className="measure relative">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div>
+              <div className="eyebrow text-voltage-ink">Join the network</div>
+              <h2 className="mt-4 max-w-xl text-display-m">
+                Bring your counter. We will bring the units.
+              </h2>
+              <p className="mt-4 max-w-md text-fg-bone-muted">
+                Earn up to 3% commission on every transaction. Enter your phone number to register or test purchase right away.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link href="/signup" className="btn btn-voltage">
+                  Register as an agent
+                </Link>
+                <Link href="/contact" className="btn btn-ghost">
+                  Ask a question
+                </Link>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-bone-line bg-bone p-7 shadow-sm sm:p-8">
+              <div className="font-label text-[0.6875rem] uppercase tracking-[0.09em] text-fg-bone-muted">
+                Quick Registration / Buy
+              </div>
+              <div className="mt-4">
+                <PhoneBuyForm
+                  layout="stacked"
+                  tone="bone"
+                  placeholder="080 0000 0000"
+                  buttonText="Register / Buy units"
+                  subtext="Agent codes and wallet credentials issued upon fast verification."
+                />
+              </div>
+            </div>
           </div>
         </Reveal>
       </section>

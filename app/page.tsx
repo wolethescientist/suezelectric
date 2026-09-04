@@ -7,6 +7,7 @@ import { AppDownloadSection } from "@/components/app-download";
 import { SocialMediaSection } from "@/components/social-media";
 import { ChatbotWidget } from "@/components/chatbot-widget";
 import { CoverageMap } from "@/components/coverage-map";
+import { PhoneBuyForm } from "@/components/phone-buy-form";
 import { TOKEN_DELIVERY_SHORT } from "@/lib/site";
 
 export default function HomePage() {
@@ -34,15 +35,21 @@ export default function HomePage() {
               </p>
 
               <div
-                className="mt-10 flex flex-wrap items-center gap-3"
+                className="mt-9 max-w-xl"
                 style={{ "--i": 4 } as React.CSSProperties}
               >
-                <Link href="/signup" className="btn btn-voltage">
-                  Buy electricity
-                </Link>
-                <Link href="/agents" className="btn btn-ghost">
-                  Become an agent
-                </Link>
+                <PhoneBuyForm
+                  layout="inline"
+                  placeholder="Enter phone number (080 0000 0000)"
+                  buttonText="Buy units"
+                  subtext="SMS & WhatsApp Token Delivery · Instant Top-Up · 11 DISCOs"
+                />
+                <div className="mt-4 flex flex-wrap items-center gap-4 font-label text-[0.6875rem] uppercase tracking-[0.075em] text-fg-ink-muted">
+                  <span>Want to sell electricity?</span>
+                  <Link href="/agents" className="link-slide text-voltage hover:underline">
+                    Become an agent &rarr;
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -106,6 +113,57 @@ export default function HomePage() {
               </p>
             </NumberedRow>
           </Reveal>
+        </Reveal>
+      </section>
+
+      {/* ───────────────────────── Instant Unit Recharge (Bone-2 / Quick Buy Section) ───────────────────────── */}
+      <section className="on-bone relative overflow-hidden border-y border-bone-line bg-bone-2/70 py-20 lg:py-28">
+        <Contours origin={{ x: 102, y: 35 }} rings={24} tone="bone" opacity={0.45} />
+        <Reveal className="measure relative">
+          <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
+            <div>
+              <div className="eyebrow text-voltage-ink">Instant Recharge</div>
+              <h2 className="mt-6 text-display-m text-fg-bone">
+                Direct electricity tokens to your phone.
+              </h2>
+              <p className="mt-6 max-w-lg text-body-l text-fg-bone-muted">
+                Enter your phone number below to start your purchase. Your 20-digit STS token arrives instantly via SMS and WhatsApp, backed by our 24/7 power desk.
+              </p>
+
+              <div className="mt-8 grid grid-cols-2 gap-4 border-t border-bone-line pt-6 text-xs text-fg-bone-muted">
+                <div>
+                  <div className="font-semibold text-fg-bone">11 Distribution Companies</div>
+                  <div className="mt-1">AEDC, IKEDC, EKEDC, IBEDC, EEDC &amp; more</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-fg-bone">SMS &amp; In-App Delivery</div>
+                  <div className="mt-1">Tokens kept safe in your purchase history</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-bone-line bg-bone p-7 shadow-sm sm:p-9">
+              <div className="flex items-center justify-between border-b border-bone-line pb-4 font-label text-[0.6875rem] uppercase tracking-[0.09em] text-fg-bone-muted">
+                <span>Quick Unit Purchase</span>
+                <span className="flex items-center gap-1.5 text-voltage-ink">
+                  <span className="h-1.5 w-1.5 rounded-full bg-voltage-ink" />
+                  Live Vending
+                </span>
+              </div>
+
+              <div className="mt-6">
+                <PhoneBuyForm
+                  layout="stacked"
+                  tone="bone"
+                  label="Enter your phone number"
+                  placeholder="080 0000 0000"
+                  buttonText="Buy unit"
+                  showAmountChips
+                  subtext="You will be directed to confirm your meter number and complete checkout."
+                />
+              </div>
+            </div>
+          </div>
         </Reveal>
       </section>
 

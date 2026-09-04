@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Contours, Guilloche } from "@/components/texture";
 import { Reveal } from "@/components/reveal";
+import { PhoneBuyForm } from "@/components/phone-buy-form";
 import {
   NumberedRow,
   PageHero,
@@ -149,17 +150,41 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="relative overflow-hidden py-20 lg:py-24">
         <Contours origin={{ x: 30, y: 45 }} rings={24} opacity={0.6} />
-        <Reveal className="measure relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <h2 className="max-w-xl text-display-m">
-            Buy your first token, or bring us your estate.
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/signup" className="btn btn-voltage">
-              Buy electricity
-            </Link>
-            <Link href="/partners" className="btn btn-ghost">
-              Partner with us
-            </Link>
+        <Reveal className="measure relative">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div>
+              <div className="eyebrow">Get started</div>
+              <h2 className="mt-4 max-w-xl text-display-m">
+                Buy your first token, or bring us your estate.
+              </h2>
+              <p className="mt-4 max-w-md text-fg-ink-muted">
+                Enter your phone number to vend instantly across 11 distribution companies with zero delays.
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <Link href="/partners" className="btn btn-ghost">
+                  Partner with us
+                </Link>
+                <Link href="/agents" className="link-slide font-label text-[0.6875rem] uppercase tracking-[0.075em] text-voltage">
+                  Become an agent &rarr;
+                </Link>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-ink-line bg-ink-2/70 p-7 sm:p-8">
+              <div className="font-label text-[0.6875rem] uppercase tracking-[0.09em] text-fg-ink-muted">
+                Instant Meter Recharge
+              </div>
+              <div className="mt-4">
+                <PhoneBuyForm
+                  layout="stacked"
+                  tone="ink"
+                  placeholder="080 0000 0000"
+                  buttonText="Buy unit"
+                  showAmountChips
+                  subtext="Token delivered by SMS and saved to your account history."
+                />
+              </div>
+            </div>
           </div>
         </Reveal>
       </section>
