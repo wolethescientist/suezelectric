@@ -16,13 +16,13 @@ import { TOKEN_DELIVERY_LONG } from "@/lib/site";
 
 const STEPS = [
   {
-    title: "Enter your phone number",
+    title: "Enter your meter number",
     meta: "No account needed to start",
-    body: "Type the number your token should land on and tap buy. Returning customers get their saved meters pulled up straight away.",
-    glyph: PhoneGlyph,
+    body: "Type the number on the meter you are buying light for. Returning customers get their saved meters pulled up straight away.",
+    glyph: MeterGlyph,
   },
   {
-    title: "Confirm the meter, then pay",
+    title: "Check the name, then pay",
     meta: "Card · transfer · USSD · wallet",
     body: "We resolve the meter against your distribution company and show the registered name and the unit count before a naira leaves your account.",
     glyph: NairaGlyph,
@@ -119,7 +119,7 @@ export function BuySteps() {
 
 type GlyphProps = { className?: string };
 
-function PhoneGlyph({ className = "" }: GlyphProps) {
+function MeterGlyph({ className = "" }: GlyphProps) {
   return (
     <svg
       viewBox="0 0 32 32"
@@ -129,10 +129,12 @@ function PhoneGlyph({ className = "" }: GlyphProps) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <rect x="9.5" y="3.5" width="13" height="25" rx="3" />
-      <path d="M13.5 6.5h5" />
-      <path d="M14 25.5h4" />
-      <path d="M12.5 11.5h7M12.5 15h7M12.5 18.5h4" />
+      <rect x="5.5" y="3.5" width="21" height="25" rx="3" />
+      {/* the digit window */}
+      <rect x="9.5" y="8.5" width="13" height="6" rx="1" />
+      <path d="M12 11.5h.01M14.5 11.5h.01M17 11.5h.01M19.5 11.5h.01" />
+      {/* keypad */}
+      <path d="M11.5 19.5h.01M16 19.5h.01M20.5 19.5h.01M11.5 23.5h.01M16 23.5h.01M20.5 23.5h.01" />
     </svg>
   );
 }

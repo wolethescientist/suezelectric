@@ -6,26 +6,41 @@ import Link from "next/link";
 
 export function SignupForm() {
   const searchParams = useSearchParams();
-  const phoneParam = searchParams.get("phone") || "";
+  const meterParam = searchParams.get("meter") || "";
   const amountParam = searchParams.get("amount") || "";
-  const [phone, setPhone] = useState(phoneParam);
+  const [meter, setMeter] = useState(meterParam);
 
   useEffect(() => {
-    if (phoneParam) {
-      setPhone(phoneParam);
+    if (meterParam) {
+      setMeter(meterParam);
     }
-  }, [phoneParam]);
+  }, [meterParam]);
 
   return (
     <form className="space-y-7">
-      {phoneParam && (
+      {meterParam && (
         <div className="rounded-xl border border-voltage/30 bg-voltage/10 px-4 py-3 text-xs text-voltage">
-          Continuing with phone number <strong>{phoneParam}</strong>
+          Continuing with meter <strong>{meterParam}</strong>
           {amountParam && (
             <span> · Initial recharge of ₦{Number(amountParam).toLocaleString()} selected</span>
           )}
         </div>
       )}
+
+      <p className="field">
+        <label htmlFor="s-meter">Meter number</label>
+        <input
+          id="s-meter"
+          name="meter"
+          type="text"
+          inputMode="numeric"
+          autoComplete="off"
+          placeholder="4512 7789 013"
+          value={meter}
+          onChange={(e) => setMeter(e.target.value)}
+          required
+        />
+      </p>
 
       <p className="field">
         <label htmlFor="s-name">Full name</label>
@@ -41,8 +56,6 @@ export function SignupForm() {
             type="tel"
             autoComplete="tel"
             placeholder="080 0000 0000"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
             required
           />
         </p>

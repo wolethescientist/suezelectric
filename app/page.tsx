@@ -7,7 +7,7 @@ import { AppDownloadSection } from "@/components/app-download";
 import { SocialMediaSection } from "@/components/social-media";
 import { ChatbotWidget } from "@/components/chatbot-widget";
 import { CoverageMap } from "@/components/coverage-map";
-import { PhoneBuyForm } from "@/components/phone-buy-form";
+import { MeterBuyForm } from "@/components/meter-buy-form";
 import { BuySteps } from "@/components/buy-steps";
 import { EnergyCalculator } from "@/components/energy-calculator";
 import { TOKEN_DELIVERY_SHORT } from "@/lib/site";
@@ -40,11 +40,11 @@ export default function HomePage() {
                 className="mt-9 max-w-xl"
                 style={{ "--i": 4 } as React.CSSProperties}
               >
-                <PhoneBuyForm
+                <MeterBuyForm
                   layout="inline"
-                  placeholder="Enter phone number (080 0000 0000)"
+                  placeholder="Enter meter number (4512 7789 013)"
                   buttonText="Buy units"
-                  subtext="SMS & WhatsApp Token Delivery · Instant Top-Up · 11 DISCOs"
+                  subtext="Meter checked before you pay · Instant top-up · 11 DISCOs"
                 />
                 {/* Most of this traffic is a thumb on a phone. The two things a
                     visitor might want instead of buying right this second are
@@ -142,7 +142,9 @@ export default function HomePage() {
                 Direct electricity tokens to your phone.
               </h2>
               <p className="mt-6 max-w-lg text-body-l text-fg-bone-muted">
-                Enter your phone number below to start your purchase. Your 20-digit STS token arrives instantly via SMS and WhatsApp, backed by our 24/7 power desk.
+                Enter the meter number you are buying light for. We check it
+                against your distribution company, then your 20-digit STS token
+                arrives by SMS and WhatsApp, backed by our 24/7 power desk.
               </p>
 
               <div className="mt-8 grid grid-cols-2 gap-4 border-t border-bone-line pt-6 text-xs text-fg-bone-muted">
@@ -167,14 +169,14 @@ export default function HomePage() {
               </div>
 
               <div className="mt-6">
-                <PhoneBuyForm
+                <MeterBuyForm
                   layout="stacked"
                   tone="bone"
-                  label="Enter your phone number"
-                  placeholder="080 0000 0000"
+                  label="Enter your meter number"
+                  placeholder="4512 7789 013"
                   buttonText="Buy unit"
                   showAmountChips
-                  subtext="You will be directed to confirm your meter number and complete checkout."
+                  subtext="You will be directed to confirm the registered name and complete checkout."
                 />
 
                 <a

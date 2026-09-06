@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Contours, Guilloche } from "@/components/texture";
 import { Reveal } from "@/components/reveal";
 import { NumberedRow, PageHero, SectionHead, StatRow } from "@/components/page-parts";
-import { PhoneBuyForm } from "@/components/phone-buy-form";
+import { MeterBuyForm } from "@/components/meter-buy-form";
 
 export const metadata: Metadata = {
   title: "Become an agent",
@@ -142,7 +142,7 @@ export default function AgentsPage() {
                 Bring your counter. We will bring the units.
               </h2>
               <p className="mt-4 max-w-md text-fg-bone-muted">
-                Earn up to 3% commission on every transaction. Enter your phone number to register or test purchase right away.
+                Earn up to 3% commission on every transaction. Enter a meter number to run a test purchase right away.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link href="/signup" className="btn btn-voltage">
@@ -159,10 +159,10 @@ export default function AgentsPage() {
                 Quick Registration / Buy
               </div>
               <div className="mt-4">
-                <PhoneBuyForm
+                <MeterBuyForm
                   layout="stacked"
                   tone="bone"
-                  placeholder="080 0000 0000"
+                  placeholder="4512 7789 013"
                   buttonText="Register / Buy units"
                   subtext="Agent codes and wallet credentials issued upon fast verification."
                 />

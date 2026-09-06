@@ -14,8 +14,8 @@ export default function SignupPage() {
   return (
     <AuthShell
       eyebrow="New account"
-      lines={["Four fields,", "then power."]}
-      lede="Name, phone, email, password. You can buy a token as a guest, but an account gets you the wallet, saved meters and a receipt history."
+      lines={["Five fields,", "then power."]}
+      lede="Meter, name, phone, email, password. You can buy a token as a guest, but an account gets you the wallet, saved meters and a receipt history."
       plate={{
         stat: "11",
         label: "Distribution companies covered",

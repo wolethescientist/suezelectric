@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Contours, Guilloche } from "@/components/texture";
 import { Reveal } from "@/components/reveal";
-import { PhoneBuyForm } from "@/components/phone-buy-form";
+import { MeterBuyForm } from "@/components/meter-buy-form";
 import {
   NumberedRow,
   PageHero,
@@ -158,7 +158,7 @@ export default function AboutPage() {
                 Buy your first token, or bring us your estate.
               </h2>
               <p className="mt-4 max-w-md text-fg-ink-muted">
-                Enter your phone number to vend instantly across 11 distribution companies with zero delays.
+                Enter your meter number to vend instantly across 11 distribution companies with zero delays.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-4">
                 <Link href="/partners" className="btn btn-ghost">
@@ -175,10 +175,10 @@ export default function AboutPage() {
                 Instant Meter Recharge
               </div>
               <div className="mt-4">
-                <PhoneBuyForm
+                <MeterBuyForm
                   layout="stacked"
                   tone="ink"
-                  placeholder="080 0000 0000"
+                  placeholder="4512 7789 013"
                   buttonText="Buy unit"
                   showAmountChips
                   subtext="Token delivered by SMS and saved to your account history."

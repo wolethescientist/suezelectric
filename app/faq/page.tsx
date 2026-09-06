@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Contours } from "@/components/texture";
 import { Reveal } from "@/components/reveal";
 import { PageHero, SectionHead } from "@/components/page-parts";
-import { PhoneBuyForm } from "@/components/phone-buy-form";
+import { MeterBuyForm } from "@/components/meter-buy-form";
 
 export const metadata: Metadata = {
   title: "Frequently asked questions",
@@ -59,7 +59,7 @@ const GROUPS = [
     items: [
       {
         q: "How do I open an account?",
-        a: "Sign up with your full name, phone number and email, and set a password. You can buy a token as a guest, but an account gets you the wallet, saved meters and transaction history.",
+        a: "Sign up with the meter you are buying for, your full name, phone number and email, and set a password. You can buy a token as a guest, but an account gets you the wallet, saved meters and transaction history.",
       },
       {
         q: "Are my transactions secure?",
@@ -134,7 +134,7 @@ export default function FaqPage() {
               <div className="eyebrow">Ready to recharge?</div>
               <h2 className="mt-4 max-w-xl text-display-m">Still have questions? Call, do not queue.</h2>
               <p className="mt-4 max-w-md text-fg-ink-muted">
-                Our support team is live 24/7 on phone and WhatsApp. Or enter your phone number to vend electricity right now.
+                Our support team is live 24/7 on phone and WhatsApp. Or enter your meter number to vend electricity right now.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link href="/contact" className="btn btn-voltage">
@@ -151,10 +151,10 @@ export default function FaqPage() {
                 Instant Meter Recharge
               </div>
               <div className="mt-4">
-                <PhoneBuyForm
+                <MeterBuyForm
                   layout="stacked"
                   tone="ink"
-                  placeholder="080 0000 0000"
+                  placeholder="4512 7789 013"
                   buttonText="Buy unit"
                   showAmountChips
                   subtext="Token delivered by SMS and saved to your account history."
