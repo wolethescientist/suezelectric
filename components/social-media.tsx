@@ -36,7 +36,7 @@ const SOCIAL_CHANNELS = [
 
 export function SocialMediaSection() {
   return (
-    <section id="social-media" className="on-bone relative overflow-hidden py-20 lg:py-28">
+    <section id="social-media" className="on-bone relative overflow-hidden section-y">
       <Contours origin={{ x: 91, y: 32 }} rings={24} tone="bone" opacity={0.45} />
       <Reveal className="measure relative">
         <SectionHead

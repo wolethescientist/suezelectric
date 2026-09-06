@@ -56,7 +56,7 @@ export default function InvestorsPage() {
       />
 
       {/* Investment thesis */}
-      <section className="on-bone relative overflow-hidden py-20 lg:py-28">
+      <section className="on-bone relative overflow-hidden section-y">
         <Contours origin={{ x: -8, y: 30 }} rings={22} tone="bone" opacity={0.5} />
         <Reveal className="measure relative">
           <SectionHead
@@ -83,7 +83,7 @@ export default function InvestorsPage() {
       </section>
 
       {/* Corporate profile */}
-      <section className="relative overflow-hidden border-y border-ink-line py-20 lg:py-28">
+      <section className="relative overflow-hidden border-y border-ink-line section-y">
         <Guilloche className="pointer-events-none absolute -left-44 top-1/3 h-[32rem] w-[32rem] opacity-25" />
         <Reveal className="measure relative">
           <SectionHead eyebrow="Corporate profile" title="Structure and operating base." />
@@ -149,7 +149,7 @@ export default function InvestorsPage() {
       </section>
 
       {/* Contact */}
-      <section className="on-bone relative overflow-hidden py-20 lg:py-28">
+      <section className="on-bone relative overflow-hidden section-y">
         <Contours origin={{ x: 100, y: 60 }} rings={20} tone="bone" opacity={0.45} />
         <Reveal className="measure relative">
           <div className="reveal">

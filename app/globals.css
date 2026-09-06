@@ -54,9 +54,19 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* Decorative contour and guilloche plates are deliberately drawn past their
+       section edges. `clip` (not `hidden`) contains them without turning the root
+       into a scroll container, which is what breaks position: sticky. */
+    overflow-x: clip;
+  }
+
+  /* Anchored sections must clear the fixed header pill. */
+  :target {
+    scroll-margin-top: 6rem;
   }
 
   body {
+    overflow-x: clip;
     background: var(--color-ink);
     color: var(--color-fg-ink);
     font-family: var(--font-sans);
@@ -89,6 +99,32 @@
 
   p {
     text-wrap: pretty;
+  }
+}
+
+@layer base {
+  /* iOS zooms the viewport when a focused field is under 16px. Holding every
+     control at 1rem on touch pointers is the only reliable way to stop it, and it
+     is why the form fields below never drop below this size on small screens. */
+  @media (pointer: coarse) {
+    input,
+    select,
+    textarea {
+      font-size: 1rem;
+    }
+  }
+
+  /* Nothing may push the page sideways. */
+  img,
+  svg,
+  video,
+  table {
+    max-width: 100%;
+  }
+
+  /* Long tokens, meter serials and email addresses break rather than scroll. */
+  h1, h2, h3, p, li, dd, dt, a, span {
+    overflow-wrap: break-word;
   }
 }
 
@@ -156,14 +192,34 @@
     );
   }
 
+  /* Standard section rhythm. Phones get a tighter band than the desktop measure —
+     80px of dead space either side of a heading reads as a loading state on a
+     375px screen. */
+  .section-y {
+    padding-block: 4rem;
+  }
+  @media (min-width: 640px) {
+    .section-y {
+      padding-block: 5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .section-y {
+      padding-block: 7rem;
+    }
+  }
+
   /* ---------- Buttons ---------- */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
-    min-height: 3rem;
-    padding: 0 1.75rem;
+    min-height: 2.875rem;
+    /* Padding yields before the label does on a 320px screen. */
+    padding-inline: clamp(1.125rem, 4.5vw, 1.75rem);
+    max-width: 100%;
+    text-align: center;
     border-radius: 9999px;
     font-family: var(--font-label);
     font-weight: 500;
@@ -347,7 +403,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 1.25rem;
     padding: 1.5rem 0;
     cursor: pointer;
     list-style: none;
@@ -539,6 +595,17 @@
   }
   .link-slide:hover::after {
     transform: scaleX(1);
+  }
+  /* A 20px line of text is a 20px target for a fingertip. On touch pointers the
+     hit area is grown with a transparent pseudo-element rather than padding, so
+     every one of these links gets thumb-sized without moving a pixel of layout.
+     6px a side keeps neighbours in a 14px-gapped list from overlapping. */
+  @media (pointer: coarse) {
+    .link-slide::before {
+      content: "";
+      position: absolute;
+      inset: -0.375rem -0.25rem;
+    }
   }
 }
 

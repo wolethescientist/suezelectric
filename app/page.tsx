@@ -8,6 +8,8 @@ import { SocialMediaSection } from "@/components/social-media";
 import { ChatbotWidget } from "@/components/chatbot-widget";
 import { CoverageMap } from "@/components/coverage-map";
 import { PhoneBuyForm } from "@/components/phone-buy-form";
+import { BuySteps } from "@/components/buy-steps";
+import { EnergyCalculator } from "@/components/energy-calculator";
 import { TOKEN_DELIVERY_SHORT } from "@/lib/site";
 
 export default function HomePage() {
@@ -44,10 +46,20 @@ export default function HomePage() {
                   buttonText="Buy units"
                   subtext="SMS & WhatsApp Token Delivery · Instant Top-Up · 11 DISCOs"
                 />
-                <div className="mt-4 flex flex-wrap items-center gap-4 font-label text-[0.6875rem] uppercase tracking-[0.075em] text-fg-ink-muted">
-                  <span>Want to sell electricity?</span>
-                  <Link href="/agents" className="link-slide text-voltage hover:underline">
-                    Become an agent &rarr;
+                {/* Most of this traffic is a thumb on a phone. The two things a
+                    visitor might want instead of buying right this second are
+                    therefore real, full-width buttons — not 11px text links sitting
+                    under the fold of their own paragraph. */}
+                <div className="mt-4 flex flex-col gap-3 sm:mt-5 sm:flex-row sm:flex-wrap sm:items-center">
+                  <a
+                    href="#energy-calculator"
+                    className="btn btn-ghost w-full sm:w-auto"
+                  >
+                    <CalculatorGlyph />
+                    Calculate your energy
+                  </a>
+                  <Link href="/agents" className="btn btn-ghost w-full sm:w-auto">
+                    Sign up as an agent
                   </Link>
                 </div>
               </div>
@@ -76,12 +88,15 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ───────────────────────── Three steps (ink) ───────────────────────── */}
+      <BuySteps />
+
       {/* ───────────────────────── How it works (bone) ───────────────────────── */}
-      <section className="on-bone relative overflow-hidden py-20 lg:py-28">
+      <section className="on-bone relative overflow-hidden section-y">
         <Contours origin={{ x: -8, y: 62 }} rings={22} tone="bone" opacity={0.5} />
         <Reveal className="measure relative">
           <SectionHead
-            eyebrow="Four taps, fourteen seconds"
+            eyebrow="The same three steps, in full"
             title="The whole transaction, start to token."
             note="Works on prepaid, postpaid and net-metered accounts"
           />
@@ -117,7 +132,7 @@ export default function HomePage() {
       </section>
 
       {/* ───────────────────────── Instant Unit Recharge (Bone-2 / Quick Buy Section) ───────────────────────── */}
-      <section className="on-bone relative overflow-hidden border-y border-bone-line bg-bone-2/70 py-20 lg:py-28">
+      <section className="on-bone relative overflow-hidden border-y border-bone-line bg-bone-2/70 section-y">
         <Contours origin={{ x: 102, y: 35 }} rings={24} tone="bone" opacity={0.45} />
         <Reveal className="measure relative">
           <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
@@ -161,17 +176,28 @@ export default function HomePage() {
                   showAmountChips
                   subtext="You will be directed to confirm your meter number and complete checkout."
                 />
+
+                <a
+                  href="#energy-calculator"
+                  className="btn btn-ghost mt-4 w-full"
+                >
+                  <CalculatorGlyph />
+                  Calculate your energy
+                </a>
               </div>
             </div>
           </div>
         </Reveal>
       </section>
 
+      {/* ───────────────────────── Energy calculator (ink) ───────────────────────── */}
+      <EnergyCalculator />
+
       {/* ───────────────────────── Coverage plate (ink) ───────────────────────── */}
       <CoverageMap />
 
       {/* ───────────────────────── Why (ink) ───────────────────────── */}
-      <section className="relative overflow-hidden border-y border-ink-line py-20 lg:py-28">
+      <section className="relative overflow-hidden border-y border-ink-line section-y">
         <Guilloche className="pointer-events-none absolute -right-32 top-1/2 h-[34rem] w-[34rem] -translate-y-1/2 opacity-30" />
         <Reveal className="measure relative">
           <SectionHead
@@ -220,7 +246,7 @@ export default function HomePage() {
       </section>
 
       {/* ───────────────────────── Heritage (bone) ───────────────────────── */}
-      <section className="on-bone relative overflow-hidden py-20 lg:py-28">
+      <section className="on-bone relative overflow-hidden section-y">
         <Contours origin={{ x: 106, y: 30 }} rings={20} tone="bone" opacity={0.45} />
         <Reveal className="measure relative">
           <div className="reveal">
@@ -252,7 +278,7 @@ export default function HomePage() {
       <AppDownloadSection />
 
       {/* ───────────────────────── Power desk (bone) ───────────────────────── */}
-      <section className="on-bone relative overflow-hidden border-y border-bone-line py-20 lg:py-28">
+      <section className="on-bone relative overflow-hidden border-y border-bone-line section-y">
         <Contours origin={{ x: 106, y: 72 }} rings={18} tone="bone" opacity={0.4} />
         <Reveal className="measure relative">
           <SectionHead
@@ -284,7 +310,7 @@ export default function HomePage() {
       <SocialMediaSection />
 
       {/* ───────────────────────── Agent CTA (ink) ───────────────────────── */}
-      <section className="relative overflow-hidden py-20 lg:py-28">
+      <section className="relative overflow-hidden section-y">
         <Contours origin={{ x: 22, y: 50 }} rings={26} opacity={0.7} />
         <Reveal className="measure relative">
           <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-20">
@@ -312,5 +338,23 @@ export default function HomePage() {
 
       <ChatbotWidget />
     </>
+  );
+}
+
+/** Hairline calculator mark, drawn in the same language as the contour artwork. */
+function CalculatorGlyph() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      aria-hidden="true"
+      className="h-4 w-4 shrink-0 fill-none stroke-current"
+      strokeWidth="1.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="2.5" y="1.5" width="11" height="13" rx="2" />
+      <path d="M5.25 4.75h5.5" />
+      <path d="M5.5 8h.01M8 8h.01M10.5 8h.01M5.5 11h.01M8 11h.01M10.5 11h.01" />
+    </svg>
   );
 }

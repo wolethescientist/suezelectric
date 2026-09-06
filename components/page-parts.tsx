@@ -18,7 +18,7 @@ export function PageHero({
   aside?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden border-b border-ink-line pb-16 pt-36 sm:pb-20 sm:pt-44">
+    <section className="relative overflow-hidden border-b border-ink-line pb-12 pt-28 sm:pb-20 sm:pt-44">
       <Contours origin={{ x: 92, y: 22 }} rings={24} opacity={0.6} />
       <Reveal className="measure relative" immediate>
         <div className="grid gap-12 lg:grid-cols-[1.35fr_0.85fr] lg:items-end lg:gap-20">
@@ -100,7 +100,7 @@ export function NumberedRow({
 }) {
   return (
     <div
-      className="group grid gap-4 border-t py-9 transition-colors duration-300 sm:grid-cols-[5rem_1fr] sm:gap-10 lg:grid-cols-[5rem_1.1fr_1.4fr]"
+      className="group grid gap-3 border-t py-7 transition-colors duration-300 sm:grid-cols-[5rem_1fr] sm:gap-10 sm:py-9 lg:grid-cols-[5rem_1.1fr_1.4fr]"
       style={{ "--i": index } as React.CSSProperties}
     >
       <div className="font-label text-[0.6875rem] uppercase tracking-[0.09em] opacity-60">
@@ -126,7 +126,7 @@ export function StatRow({
   items: { label: string; value: string; note?: string }[];
 }) {
   return (
-    <dl className="grid grid-cols-2 gap-y-8 border-t pt-9 lg:grid-cols-4">
+    <dl className="grid grid-cols-2 gap-x-6 gap-y-8 border-t pt-8 sm:pt-9 lg:grid-cols-4">
       {items.map((s, i) => (
         <div
           key={s.label}

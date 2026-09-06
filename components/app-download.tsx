@@ -320,7 +320,7 @@ function Battery() {
 /** The full home-page section. */
 export function AppDownloadSection() {
   return (
-    <section className="relative overflow-hidden border-y border-ink-line py-20 lg:py-28">
+    <section className="relative overflow-hidden border-y border-ink-line section-y">
       <Contours origin={{ x: 18, y: 46 }} rings={28} opacity={0.7} />
 
       <Reveal className="measure relative">

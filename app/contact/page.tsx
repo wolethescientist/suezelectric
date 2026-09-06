@@ -38,7 +38,7 @@ export default function ContactPage() {
         lede="If a payment went through and a token did not, that is not a support ticket — it is an emergency for your evening. Call it in."
       />
 
-      <section className="on-bone relative overflow-hidden py-20 lg:py-28">
+      <section className="on-bone relative overflow-hidden section-y">
         <Contours origin={{ x: 104, y: 30 }} rings={22} tone="bone" opacity={0.45} />
         <Guilloche
           className="pointer-events-none absolute -left-40 bottom-[-8rem] h-[30rem] w-[30rem] opacity-30"

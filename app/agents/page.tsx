@@ -35,7 +35,7 @@ export default function AgentsPage() {
       />
 
       {/* Earnings table — hairline rows, no boxes */}
-      <section className="on-bone relative overflow-hidden py-20 lg:py-28">
+      <section className="on-bone relative overflow-hidden section-y">
         <Contours origin={{ x: -8, y: 40 }} rings={22} tone="bone" opacity={0.5} />
         <Reveal className="measure relative">
           <SectionHead
@@ -88,7 +88,7 @@ export default function AgentsPage() {
       </section>
 
       {/* How to start */}
-      <section className="relative overflow-hidden border-y border-ink-line py-20 lg:py-28">
+      <section className="relative overflow-hidden border-y border-ink-line section-y">
         <Guilloche className="pointer-events-none absolute -right-36 bottom-0 h-[32rem] w-[32rem] opacity-25" />
         <Reveal className="measure relative">
           <SectionHead eyebrow="Getting started" title="Four steps, one working day." />

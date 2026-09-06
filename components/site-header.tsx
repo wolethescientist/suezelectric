@@ -101,7 +101,7 @@ export function SiteHeader() {
       {/* Mobile drawer — a separate floating panel, so the bar stays a clean pill */}
       <div
         className={`overflow-hidden rounded-3xl border-ink-line bg-ink/95 backdrop-blur-xl transition-[max-height,opacity,margin] duration-500 lg:hidden ${
-          open ? "mt-2 max-h-[32rem] border opacity-100" : "mt-0 max-h-0 border-0 opacity-0"
+          open ? "mt-2 max-h-[42rem] border opacity-100" : "mt-0 max-h-0 border-0 opacity-0"
         }`}
       >
         <nav
@@ -120,11 +120,28 @@ export function SiteHeader() {
               </span>
             </Link>
           ))}
-          <div className="mt-5 flex gap-3">
-            <Link href="/signup" className="btn btn-voltage flex-1">
+          <div className="mt-5 flex flex-col gap-3">
+            <Link href="/signup" className="btn btn-voltage w-full">
               Buy units
             </Link>
-            <Link href="/login" className="btn btn-ghost flex-1">
+            {/* The calculator has no desktop nav entry — it lives on the home page.
+                On a phone the drawer is the only place to reach for it by name. */}
+            <Link href="/#energy-calculator" className="btn btn-ghost w-full">
+              <svg
+                viewBox="0 0 16 16"
+                aria-hidden="true"
+                className="h-4 w-4 shrink-0 fill-none stroke-current"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="2.5" y="1.5" width="11" height="13" rx="2" />
+                <path d="M5.25 4.75h5.5" />
+                <path d="M5.5 8h.01M8 8h.01M10.5 8h.01M5.5 11h.01M8 11h.01M10.5 11h.01" />
+              </svg>
+              Calculate your energy
+            </Link>
+            <Link href="/login" className="btn btn-ghost w-full">
               Log in
             </Link>
           </div>

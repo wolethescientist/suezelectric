@@ -59,7 +59,7 @@ export default function PartnersPage() {
       />
 
       {/* Four partnership tracks — column rules, no card boxes */}
-      <section className="on-bone relative overflow-hidden py-20 lg:py-28">
+      <section className="on-bone relative overflow-hidden section-y">
         <Contours origin={{ x: -6, y: 34 }} rings={22} tone="bone" opacity={0.5} />
         <Reveal className="measure relative">
           <SectionHead
@@ -85,7 +85,7 @@ export default function PartnersPage() {
       </section>
 
       {/* Why us */}
-      <section className="relative overflow-hidden border-y border-ink-line py-20 lg:py-28">
+      <section className="relative overflow-hidden border-y border-ink-line section-y">
         <Guilloche className="pointer-events-none absolute -right-40 top-10 h-[34rem] w-[34rem] opacity-25" />
         <Reveal className="measure relative">
           <div className="reveal">

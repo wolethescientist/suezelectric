@@ -104,14 +104,14 @@ export function PhoneBuyForm({
                 }}
                 placeholder={placeholder}
                 autoComplete="tel"
-                className={`w-full rounded-xl border px-4 py-3.5 font-mono text-base tracking-wide transition-all duration-200 focus:outline-none ${
+                className={`w-full rounded-xl border px-4 py-3.5 pr-4 font-mono text-base tracking-wide transition-all duration-200 focus:outline-none sm:pr-24 ${
                   isBone
                     ? "border-bone-line bg-bone-2/60 text-fg-bone placeholder:text-fg-bone-muted/60 focus:border-voltage-ink focus:ring-1 focus:ring-voltage-ink"
                     : "border-ink-line bg-ink-2/80 text-fg-ink placeholder:text-fg-ink-muted/50 focus:border-voltage focus:ring-1 focus:ring-voltage"
                 }`}
               />
               <span
-                className={`pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 font-label text-[0.6875rem] uppercase tracking-wider ${
+                className={`pointer-events-none absolute right-4 top-1/2 hidden -translate-y-1/2 font-label text-[0.6875rem] uppercase tracking-wider sm:block ${
                   isBone ? "text-fg-bone-muted" : "text-fg-ink-muted"
                 }`}
               >
@@ -129,7 +129,7 @@ export function PhoneBuyForm({
               >
                 Select amount
               </div>
-              <div className="mt-2 flex gap-2">
+              <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {[
                   { label: "₦2,000", val: "2000" },
                   { label: "₦5,000", val: "5000" },
@@ -140,7 +140,7 @@ export function PhoneBuyForm({
                     key={chip.val}
                     type="button"
                     onClick={() => setSelectedAmount(chip.val)}
-                    className={`flex-1 rounded-lg border py-2 text-center font-mono text-xs transition-colors duration-150 ${
+                    className={`min-h-11 cursor-pointer rounded-lg border py-2 text-center font-mono text-xs transition-colors duration-150 ${
                       selectedAmount === chip.val
                         ? isBone
                           ? "border-voltage-ink bg-voltage-ink/10 font-semibold text-voltage-ink"
@@ -210,7 +210,7 @@ export function PhoneBuyForm({
         <button
           type="submit"
           disabled={loading}
-          className="btn btn-voltage shrink-0 px-7"
+          className="btn btn-voltage w-full shrink-0 sm:w-auto"
         >
           {loading ? "Loading..." : buttonText}
         </button>

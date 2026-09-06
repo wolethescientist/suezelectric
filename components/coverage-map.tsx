@@ -24,7 +24,7 @@ export function CoverageMap() {
   return (
     <section
       id="coverage"
-      className="relative overflow-hidden border-y border-ink-line py-20 lg:py-28"
+      className="relative overflow-hidden border-y border-ink-line section-y"
     >
       <Contours origin={{ x: 8, y: 20 }} rings={24} opacity={0.45} />
 
@@ -179,7 +179,7 @@ export function CoverageMap() {
 
               {/* The same information as a list: keyboard reachable, and the only
                   version that exists if the SVG never paints. */}
-              <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5 border-t border-ink-line pt-6">
+              <ul className="mt-8 flex flex-wrap gap-x-4 gap-y-1 border-t border-ink-line pt-4">
                 {MAP_TERRITORIES.map((t) => (
                   <li key={t.id}>
                     <button
@@ -192,7 +192,7 @@ export function CoverageMap() {
                       onBlur={() => setActive(null)}
                       onClick={() => setActive((c) => (c === t.id ? null : t.id))}
                       aria-pressed={active === t.id}
-                      className={`cursor-pointer font-label text-[0.6875rem] uppercase tracking-[0.075em] transition-colors duration-200 ${
+                      className={`flex min-h-11 cursor-pointer items-center font-label text-[0.6875rem] uppercase tracking-[0.075em] transition-colors duration-200 ${
                         active === t.id
                           ? "text-voltage"
                           : "text-fg-ink-muted hover:text-fg-ink"

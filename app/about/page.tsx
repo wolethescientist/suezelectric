@@ -48,7 +48,7 @@ export default function AboutPage() {
       />
 
       {/* Mission */}
-      <section className="on-bone relative overflow-hidden py-20 lg:py-28">
+      <section className="on-bone relative overflow-hidden section-y">
         <Contours origin={{ x: -6, y: 30 }} rings={22} tone="bone" opacity={0.5} />
         <Reveal className="measure relative">
           <div className="reveal">
@@ -73,7 +73,7 @@ export default function AboutPage() {
       </section>
 
       {/* What we do */}
-      <section className="relative overflow-hidden border-y border-ink-line py-20 lg:py-28">
+      <section className="relative overflow-hidden border-y border-ink-line section-y">
         <Guilloche className="pointer-events-none absolute -left-40 top-16 h-[30rem] w-[30rem] opacity-25" />
         <Reveal className="measure relative">
           <SectionHead
@@ -108,7 +108,7 @@ export default function AboutPage() {
       </section>
 
       {/* The group */}
-      <section className="on-bone relative overflow-hidden py-20 lg:py-28">
+      <section className="on-bone relative overflow-hidden section-y">
         <Contours origin={{ x: 104, y: 70 }} rings={20} tone="bone" opacity={0.45} />
         <Reveal className="measure relative">
           <SectionHead

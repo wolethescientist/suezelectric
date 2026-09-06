@@ -18,6 +18,7 @@ const COLUMNS = [
     title: "Platform",
     links: [
       { href: "/signup", label: "Buy units" },
+      { href: "/#energy-calculator", label: "Energy calculator" },
       { href: "/agents", label: "Become an agent" },
       { href: "/faq", label: "FAQ" },
       { href: "/login", label: "Log in" },
@@ -91,7 +92,7 @@ export function SiteFooter() {
             />
           </address>
 
-          <div className="mt-9 flex gap-2">
+          <div className="mt-9 flex flex-wrap gap-2.5">
             {SOCIALS.map((s) => (
               <a
                 key={s.label}
@@ -99,7 +100,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-ink-line font-label text-[0.6875rem] tracking-widest text-fg-ink-muted transition-colors duration-200 hover:border-voltage hover:text-voltage"
+                className="grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-ink-line font-label text-[0.6875rem] tracking-widest text-fg-ink-muted transition-colors duration-200 hover:border-voltage hover:text-voltage"
               >
                 {s.short}
               </a>
@@ -120,12 +121,12 @@ export function SiteFooter() {
               <h3 className="font-label text-[0.6875rem] font-normal uppercase tracking-[0.09em] text-fg-ink-muted">
                 {col.title}
               </h3>
-              <ul className="mt-5 space-y-3.5">
+              <ul className="mt-4 space-y-1">
                 {col.links.map((l) => (
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="link-slide text-[0.9375rem] text-fg-ink transition-colors duration-200 hover:text-voltage"
+                      className="link-slide inline-flex min-h-11 items-center text-[0.9375rem] text-fg-ink transition-colors duration-200 hover:text-voltage"
                     >
                       {l.label}
                     </Link>
